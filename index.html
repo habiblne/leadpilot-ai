@@ -3,34 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="LeadPilot AI — AI-powered lead qualification and routing" />
+    <meta name="description" content="LeadPilot AI - AI-powered lead qualification and routing" />
     <title>LeadPilot AI</title>
+    <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="page-shell">
       <section class="card">
-        <div class="eyebrow">LEADPILOT AI · LIVE AUTOMATION</div>
+        <div class="eyebrow">LEADPILOT AI &middot; LIVE AUTOMATION</div>
         <h1>Turn new inquiries into qualified leads.</h1>
         <p class="intro">Submit a lead. LeadPilot validates the request, qualifies it with AI, stores it automatically, and prioritizes high-intent opportunities for follow-up.</p>
 
-        <form id="lead-form" class="lead-form">
+        <form id="lead-form" class="lead-form" novalidate>
+          <p class="demo-notice" id="demo-notice">Live demo &mdash; In a real client deployment, lead scores and qualification details are visible only to the business team.</p>
+
           <div class="grid two">
-            <label>Name<input name="name" required placeholder="Ahmed" /></label>
-            <label>Phone<input name="phone" required placeholder="0550 12 34 56" /></label>
+            <label for="name"><span class="field-label">Name</span><input id="name" name="name" autocomplete="name" required placeholder="Ahmed Benali" /></label>
+            <label for="phone"><span class="field-label">Phone</span><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="+213 550 123 456" /></label>
           </div>
+
           <div class="grid two">
-            <label>Business<input name="business" required placeholder="Clothing store" /></label>
-            <label>Requested service<input name="service" required placeholder="AI automation" /></label>
+            <label for="business"><span class="field-label">Business</span><input id="business" name="business" autocomplete="organization" required placeholder="Clothing store in Algiers" /></label>
+            <label for="service"><span class="field-label">Requested service</span><input id="service" name="service" required placeholder="Automate WhatsApp and website leads" /></label>
           </div>
-          <label>Budget<input name="budget" placeholder="80,000 DZD" /></label>
-          <label>Message<textarea name="message" required rows="5" placeholder="I want to automate incoming customer requests this month…"></textarea></label>
-          <button id="submit-button" type="submit">Qualify lead with AI</button>
+
+          <label for="budget"><span class="field-label">Budget</span><input id="budget" name="budget" inputmode="text" placeholder="80,000 DZD monthly budget" /></label>
+          <label for="message"><span class="field-label">Message</span><textarea id="message" name="message" required rows="5" placeholder="I want to automate incoming customer requests this month and follow up faster with qualified leads."></textarea></label>
+          <button id="submit-button" type="submit" aria-describedby="demo-notice"><span id="submit-label">Qualify lead with AI</span></button>
         </form>
 
-        <div id="status" class="status hidden" role="status"></div>
+        <div id="status" class="status hidden" role="status" aria-live="polite"></div>
 
         <section id="result" class="result hidden" aria-live="polite">
+          <div class="business-demo-label">Business-side demo output</div>
+          <p class="business-demo-note">In production, customers receive only a confirmation message; this qualification is used internally by the business.</p>
+
           <div class="result-top">
             <div>
               <div class="result-label">AI QUALIFICATION</div>
@@ -38,12 +46,14 @@
             </div>
             <div id="score-badge" class="score-badge">0/10</div>
           </div>
+
           <div class="result-grid">
-            <div class="metric"><span>Priority</span><strong id="result-temperature">—</strong></div>
-            <div class="metric"><span>Intent</span><strong id="result-intent">—</strong></div>
-            <div class="metric"><span>Urgency</span><strong id="result-urgency">—</strong></div>
-            <div class="metric"><span>Budget fit</span><strong id="result-budget">—</strong></div>
+            <div class="metric"><span>Priority</span><strong id="result-temperature">-</strong></div>
+            <div class="metric"><span>Intent</span><strong id="result-intent">-</strong></div>
+            <div class="metric"><span>Urgency</span><strong id="result-urgency">-</strong></div>
+            <div class="metric"><span>Budget fit</span><strong id="result-budget">-</strong></div>
           </div>
+
           <div class="result-section"><span>Why</span><p id="result-reason"></p></div>
           <div class="result-section"><span>Recommended action</span><p id="result-action"></p></div>
           <div class="result-section reply"><span>Suggested reply</span><p id="result-reply"></p></div>
