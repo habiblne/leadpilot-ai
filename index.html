@@ -3,64 +3,477 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="LeadPilot AI - AI-powered lead qualification and routing" />
-    <title>LeadPilot AI</title>
-    <link rel="icon" href="data:," />
+    <meta name="description" content="LeadPilot AI - AI-powered lead qualification and intake automation for businesses" />
+    <meta name="theme-color" content="#070d18" />
+    <title>LeadPilot AI · Intelligent Lead Intake &amp; Qualification</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22 width=%2232%22 height=%2232%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%234f46e5%22/><path d=%22M9 16l5 5 9-9%22 stroke=%22%23fff%22 stroke-width=%223%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="page-shell">
-      <section class="card">
-        <div class="eyebrow">LEADPILOT AI &middot; LIVE AUTOMATION</div>
-        <h1>Turn new inquiries into qualified leads.</h1>
-        <p class="intro">Submit a lead. LeadPilot validates the request, qualifies it with AI, stores it automatically, and prioritizes high-intent opportunities for follow-up.</p>
+    <!-- Ambient Background Glows -->
+    <div class="bg-glow glow-top" aria-hidden="true"></div>
+    <div class="bg-glow glow-bottom" aria-hidden="true"></div>
 
-        <form id="lead-form" class="lead-form" novalidate>
-          <p class="demo-notice" id="demo-notice">Live demo &mdash; In a real client deployment, lead scores and qualification details are visible only to the business team.</p>
-
-          <div class="grid two">
-            <label for="name"><span class="field-label">Name</span><input id="name" name="name" autocomplete="name" required placeholder="Ahmed Benali" /></label>
-            <label for="phone"><span class="field-label">Phone</span><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="+213 550 123 456" /></label>
+    <!-- Header & Navigation -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="#" class="brand" aria-label="LeadPilot AI Home">
+          <div class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
           </div>
+          <span class="brand-name">LeadPilot <span class="brand-accent">AI</span></span>
+          <span class="version-tag">v2.1</span>
+        </a>
 
-          <div class="grid two">
-            <label for="business"><span class="field-label">Business</span><input id="business" name="business" autocomplete="organization" required placeholder="Clothing store in Algiers" /></label>
-            <label for="service"><span class="field-label">Requested service</span><input id="service" name="service" required placeholder="Automate WhatsApp and website leads" /></label>
+        <div class="nav-right">
+          <div class="status-indicator" title="Connected to production n8n webhook">
+            <span class="pulse-dot"></span>
+            <span class="status-text">n8n Automation Live</span>
           </div>
+          <a href="#pipeline" class="nav-link">Pipeline Flow</a>
+          <a href="https://github.com/habiblne/leadpilot-ai" target="_blank" rel="noopener noreferrer" class="nav-btn-secondary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </header>
 
-          <label for="budget"><span class="field-label">Budget</span><input id="budget" name="budget" inputmode="text" placeholder="80,000 DZD monthly budget" /></label>
-          <label for="message"><span class="field-label">Message</span><textarea id="message" name="message" required rows="5" placeholder="I want to automate incoming customer requests this month and follow up faster with qualified leads."></textarea></label>
-          <button id="submit-button" type="submit" aria-describedby="demo-notice"><span id="submit-label">Qualify lead with AI</span></button>
-        </form>
+    <main class="main-wrapper">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+          </svg>
+          <span>AUTONOMOUS LEAD QUALIFICATION ENGINE</span>
+        </div>
+        <h1 class="hero-title">Turn inbound inquiries into <span class="text-nowrap">prioritized revenue.</span></h1>
+        <p class="hero-subtitle">
+          Submit any raw customer inquiry. LeadPilot analyzes purchase intent and urgency with Gemini AI,
+          enforces deterministic scoring guardrails, logs to Google Sheets, and alerts sales instantly on hot leads.
+        </p>
 
-        <div id="status" class="status hidden" role="status" aria-live="polite"></div>
+        <!-- Feature Chips -->
+        <div class="hero-chips">
+          <div class="chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>&lt;2s AI Latency</span>
+          </div>
+          <div class="chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Deterministic Scoring</span>
+          </div>
+          <div class="chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <span>Google Sheets CRM</span>
+          </div>
+          <div class="chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Instant Gmail Alerts</span>
+          </div>
+        </div>
+      </section>
 
-        <section id="result" class="result hidden" aria-live="polite">
-          <div class="business-demo-label">Business-side demo output</div>
-          <p class="business-demo-note">In production, customers receive only a confirmation message; this qualification is used internally by the business.</p>
-
-          <div class="result-top">
-            <div>
-              <div class="result-label">AI QUALIFICATION</div>
-              <h2 id="result-summary">Lead summary</h2>
+      <!-- Interactive Demo Playground (2-column layout) -->
+      <section class="demo-playground" id="demo">
+        <div class="playground-grid">
+          
+          <!-- Column 1: Intake Form Card -->
+          <div class="panel form-panel">
+            <div class="panel-header">
+              <div>
+                <span class="panel-eyebrow">STEP 1 &middot; LEAD INTAKE</span>
+                <h2 class="panel-title">Customer Web Inquiry</h2>
+              </div>
+              <span class="env-tag">Live Production</span>
             </div>
-            <div id="score-badge" class="score-badge">0/10</div>
+
+            <!-- Preset Buttons -->
+            <div class="preset-selector">
+              <span class="preset-label">Quick Test Presets:</span>
+              <div class="preset-buttons">
+                <button type="button" class="preset-btn" data-preset="hot" title="High intent, urgent timeline, strong budget">
+                  <span class="preset-icon">🔥</span>
+                  <span>Hot Lead</span>
+                </button>
+                <button type="button" class="preset-btn" data-preset="warm" title="Moderate intent, exploration phase, medium budget">
+                  <span class="preset-icon">⚡</span>
+                  <span>Warm Lead</span>
+                </button>
+                <button type="button" class="preset-btn" data-preset="cold" title="Low intent, vague scope, zero budget">
+                  <span class="preset-icon">❄️</span>
+                  <span>Cold Lead</span>
+                </button>
+                <button type="button" class="preset-reset-btn" id="reset-form-btn" title="Clear all fields">
+                  Clear
+                </button>
+              </div>
+            </div>
+
+            <form id="lead-form" class="lead-form" novalidate>
+              <div class="form-grid two">
+                <label for="name">
+                  <span class="field-label">Full Name <span class="req">*</span></span>
+                  <div class="input-wrapper">
+                    <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <input id="name" name="name" autocomplete="name" required placeholder="Ahmed Benali" />
+                  </div>
+                </label>
+
+                <label for="phone">
+                  <span class="field-label">Phone / WhatsApp <span class="req">*</span></span>
+                  <div class="input-wrapper">
+                    <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="+213 550 123 456" />
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-grid two">
+                <label for="business">
+                  <span class="field-label">Business / Company <span class="req">*</span></span>
+                  <div class="input-wrapper">
+                    <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    <input id="business" name="business" autocomplete="organization" required placeholder="Clothing store in Algiers" />
+                  </div>
+                </label>
+
+                <label for="service">
+                  <span class="field-label">Requested Service <span class="req">*</span></span>
+                  <div class="input-wrapper">
+                    <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    <input id="service" name="service" required placeholder="Automate WhatsApp &amp; website leads" />
+                  </div>
+                </label>
+              </div>
+
+              <label for="budget">
+                <span class="field-label">Budget Range (Optional)</span>
+                <div class="input-wrapper">
+                  <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  <input id="budget" name="budget" inputmode="text" placeholder="80,000 DZD monthly budget" />
+                </div>
+              </label>
+
+              <label for="message">
+                <span class="field-label">Customer Message <span class="req">*</span></span>
+                <div class="input-wrapper textarea-wrapper">
+                  <textarea id="message" name="message" required rows="4" placeholder="I want to automate incoming customer requests this month and follow up faster with qualified leads."></textarea>
+                </div>
+              </label>
+
+              <button id="submit-button" type="submit" class="submit-button">
+                <span class="btn-shine"></span>
+                <span class="btn-content">
+                  <svg class="submit-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span id="submit-label">Qualify Lead with AI</span>
+                </span>
+              </button>
+            </form>
+
+            <!-- Live Status Alert -->
+            <div id="status" class="status hidden" role="status" aria-live="polite"></div>
+
+            <!-- Animated Execution Stepper (Visible during submission) -->
+            <div id="stepper" class="stepper hidden" aria-hidden="true">
+              <div class="stepper-title">Executing AI Pipeline:</div>
+              <div class="step-item" id="step-1">
+                <span class="step-indicator"></span>
+                <span class="step-text">1. Normalizing &amp; Validating Input</span>
+              </div>
+              <div class="step-item" id="step-2">
+                <span class="step-indicator"></span>
+                <span class="step-text">2. Gemini AI Lead Intent &amp; Urgency Extraction</span>
+              </div>
+              <div class="step-item" id="step-3">
+                <span class="step-indicator"></span>
+                <span class="step-text">3. Deterministic Scoring Guardrails &amp; Storage</span>
+              </div>
+            </div>
           </div>
 
-          <div class="result-grid">
-            <div class="metric"><span>Priority</span><strong id="result-temperature">-</strong></div>
-            <div class="metric"><span>Intent</span><strong id="result-intent">-</strong></div>
-            <div class="metric"><span>Urgency</span><strong id="result-urgency">-</strong></div>
-            <div class="metric"><span>Budget fit</span><strong id="result-budget">-</strong></div>
+          <!-- Column 2: Live AI Output Dashboard -->
+          <div class="panel result-panel">
+            <div class="panel-header">
+              <div>
+                <span class="panel-eyebrow">STEP 2 &middot; AI QUALIFICATION</span>
+                <h2 class="panel-title">Business Operations Intelligence</h2>
+              </div>
+              <div class="view-toggle" id="view-toggle">
+                <button type="button" class="toggle-btn active" id="btn-view-card">Dashboard</button>
+                <button type="button" class="toggle-btn" id="btn-view-json">Raw JSON</button>
+              </div>
+            </div>
+
+            <!-- Empty / Idle State Placeholder -->
+            <div id="result-placeholder" class="result-placeholder">
+              <div class="placeholder-graphic">
+                <div class="graphic-circle outer"></div>
+                <div class="graphic-circle inner">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 class="placeholder-title">Awaiting Lead Submission</h3>
+              <p class="placeholder-text">
+                Pick a preset above (<strong class="text-hot">Hot Lead</strong>, <strong class="text-warm">Warm Lead</strong>, or <strong class="text-cold">Cold Lead</strong>) or enter a custom inquiry to inspect real-time AI qualification, scoring breakdown, and routing.
+              </p>
+              <div class="placeholder-tips">
+                <div class="tip-item">⚡ <strong>Score &ge; 8:</strong> Appends to Google Sheets &amp; sends instant Gmail alert</div>
+                <div class="tip-item">🛡️ <strong>Guardrail:</strong> High Intent + Urgency + Strong Budget guarantees Score &ge; 8</div>
+              </div>
+            </div>
+
+            <!-- Active AI Result Output -->
+            <section id="result" class="result hidden" aria-live="polite">
+              <!-- Internal Notice Banner -->
+              <div class="business-demo-banner">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Internal Business View &middot; In production, the client receives only a confirmation notice while your sales team receives this evaluation.</span>
+              </div>
+
+              <!-- Executive View Content -->
+              <div id="executive-view" class="executive-view">
+                <!-- Top Summary Card -->
+                <div class="result-hero-card">
+                  <div class="hero-card-left">
+                    <div class="meta-tag">AI EXECUTIVE SUMMARY</div>
+                    <h3 id="result-summary" class="result-summary-heading">Lead summary</h3>
+                  </div>
+                  <div class="score-display">
+                    <div class="score-ring">
+                      <span id="score-badge" class="score-badge">0/10</span>
+                    </div>
+                    <span class="score-caption">Lead Score</span>
+                  </div>
+                </div>
+
+                <!-- 4 Metrics Grid -->
+                <div class="result-grid">
+                  <div class="metric metric-priority">
+                    <div class="metric-header">
+                      <span class="metric-dot"></span>
+                      <span class="metric-title">Priority</span>
+                    </div>
+                    <strong id="result-temperature" class="metric-value">-</strong>
+                  </div>
+
+                  <div class="metric">
+                    <div class="metric-header">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      <span class="metric-title">Intent</span>
+                    </div>
+                    <strong id="result-intent" class="metric-value">-</strong>
+                  </div>
+
+                  <div class="metric">
+                    <div class="metric-header">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                      <span class="metric-title">Urgency</span>
+                    </div>
+                    <strong id="result-urgency" class="metric-value">-</strong>
+                  </div>
+
+                  <div class="metric">
+                    <div class="metric-header">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                      <span class="metric-title">Budget Fit</span>
+                    </div>
+                    <strong id="result-budget" class="metric-value">-</strong>
+                  </div>
+                </div>
+
+                <!-- Qualification Rationale & Recommended Action -->
+                <div class="insights-grid">
+                  <div class="insight-box">
+                    <div class="insight-label">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                      <span>Qualification Rationale</span>
+                    </div>
+                    <p id="result-reason" class="insight-text"></p>
+                  </div>
+
+                  <div class="insight-box">
+                    <div class="insight-label">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                      <span>Recommended Action</span>
+                    </div>
+                    <p id="result-action" class="insight-text"></p>
+                  </div>
+                </div>
+
+                <!-- Suggested Reply Card with Copy Button -->
+                <div class="reply-card">
+                  <div class="reply-header">
+                    <div class="reply-title">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      <span>AI Suggested First Response</span>
+                    </div>
+                    <button type="button" id="copy-reply-btn" class="copy-btn" title="Copy response to clipboard">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      <span id="copy-reply-label">Copy Reply</span>
+                    </button>
+                  </div>
+                  <p id="result-reply" class="reply-content"></p>
+                </div>
+              </div>
+
+              <!-- Raw JSON View Content -->
+              <div id="json-view" class="json-view hidden">
+                <div class="json-header">
+                  <span>Standardized n8n Output Schema</span>
+                  <button type="button" id="copy-json-btn" class="copy-btn">Copy JSON</button>
+                </div>
+                <pre class="json-pre"><code id="result-json-code"></code></pre>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visual Pipeline Architecture Section -->
+      <section class="pipeline-section" id="pipeline">
+        <div class="section-header">
+          <span class="section-eyebrow">SYSTEM ARCHITECTURE</span>
+          <h2 class="section-title">Production Automation Pipeline</h2>
+          <p class="section-desc">
+            Dual-branch architecture designed in n8n for sub-second customer response time and asynchronous business operations.
+          </p>
+        </div>
+
+        <div class="pipeline-flow">
+          <!-- Node 1 -->
+          <div class="pipeline-card">
+            <div class="card-step-num">01</div>
+            <div class="card-icon intake">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            </div>
+            <h3 class="card-title">Intake &amp; Validation</h3>
+            <p class="card-desc">HTTP POST webhook receives inquiry. Sanitizes inputs and formats clean payload.</p>
+            <span class="card-badge">n8n Webhook</span>
           </div>
 
-          <div class="result-section"><span>Why</span><p id="result-reason"></p></div>
-          <div class="result-section"><span>Recommended action</span><p id="result-action"></p></div>
-          <div class="result-section reply"><span>Suggested reply</span><p id="result-reply"></p></div>
-        </section>
+          <!-- Connector -->
+          <div class="pipeline-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <!-- Node 2 -->
+          <div class="pipeline-card highlight">
+            <div class="card-step-num">02</div>
+            <div class="card-icon ai">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            </div>
+            <h3 class="card-title">Gemini AI Analysis</h3>
+            <p class="card-desc">Evaluates intent, urgency, budget fit, generates rationale and draft reply.</p>
+            <span class="card-badge ai-badge">Google Gemini 1.5</span>
+          </div>
+
+          <!-- Connector -->
+          <div class="pipeline-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <!-- Node 3 -->
+          <div class="pipeline-card">
+            <div class="card-step-num">03</div>
+            <div class="card-icon logic">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="m9 14 2 2 4-4"/></svg>
+            </div>
+            <h3 class="card-title">Deterministic Guardrails</h3>
+            <p class="card-desc">Code node enforces scoring logic: 8-10 HOT, 5-7 WARM, 0-4 COLD. Guardrail enforces HOT if all high.</p>
+            <span class="card-badge">Zero Hallucination</span>
+          </div>
+
+          <!-- Connector -->
+          <div class="pipeline-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <!-- Node 4 -->
+          <div class="pipeline-card">
+            <div class="card-step-num">04</div>
+            <div class="card-icon storage">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <h3 class="card-title">Google Sheets CRM</h3>
+            <p class="card-desc">Every qualified inquiry is permanently appended with all 17 metadata fields.</p>
+            <span class="card-badge">CRM Audit Log</span>
+          </div>
+
+          <!-- Connector -->
+          <div class="pipeline-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <!-- Node 5 -->
+          <div class="pipeline-card alert-card">
+            <div class="card-step-num">05</div>
+            <div class="card-icon alert">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <h3 class="card-title">Gmail Alert (Score &ge; 8)</h3>
+            <p class="card-desc">High-priority leads immediately dispatch an email notification to the sales rep.</p>
+            <span class="card-badge hot-badge">Instant Routing</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Benefits / Technical Guarantees -->
+      <section class="features-section">
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Deterministic Guardrails</h3>
+            <p>Gemini provides rich contextual analysis, but business logic sets the score. Eliminates unexpected AI scoring variance.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Dual-Branch Speed</h3>
+            <p>Frontend receives AI response instantly. Google Sheets storage and Gmail notifications execute asynchronously.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Zero Exposed Secrets</h3>
+            <p>API keys for Gemini, Google Sheets, and Gmail reside exclusively in secured n8n environment variables.</p>
+          </div>
+        </div>
       </section>
     </main>
 
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <span class="footer-logo">LeadPilot AI</span>
+          <span class="footer-copy">&copy; 2026 &middot; Production AI Lead Qualification Architecture</span>
+        </div>
+        <div class="footer-stack">
+          <span>Powered by</span>
+          <span class="stack-item">n8n</span>
+          <span class="stack-dot">&middot;</span>
+          <span class="stack-item">Google Gemini</span>
+          <span class="stack-dot">&middot;</span>
+          <span class="stack-item">Google Sheets</span>
+          <span class="stack-dot">&middot;</span>
+          <span class="stack-item">Gmail API</span>
+          <span class="stack-dot">&middot;</span>
+          <span class="stack-item">Vercel</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="./config.js"></script>
     <script src="./app.js"></script>
   </body>
