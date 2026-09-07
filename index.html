@@ -27,13 +27,13 @@
             </svg>
           </div>
           <span class="brand-name">LeadPilot <span class="brand-accent">AI</span></span>
-          <span class="version-tag">v2.1</span>
+          <span class="version-tag">v2.2</span>
         </a>
 
         <div class="nav-right">
-          <div class="status-indicator" title="Connected to production n8n webhook">
+          <div class="status-indicator" title="Lead submissions use a protected server-side API route">
             <span class="pulse-dot"></span>
-            <span class="status-text">n8n Automation Live</span>
+            <span class="status-text">Secure API Route</span>
           </div>
           <a href="#pipeline" class="nav-link">Pipeline Flow</a>
           <a href="https://github.com/habiblne/leadpilot-ai" target="_blank" rel="noopener noreferrer" class="nav-btn-secondary">
@@ -65,7 +65,7 @@
         <div class="hero-chips">
           <div class="chip">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span>&lt;2s AI Latency</span>
+            <span>Fast AI Qualification</span>
           </div>
           <div class="chip">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -119,12 +119,16 @@
             </div>
 
             <form id="lead-form" class="lead-form" novalidate>
+              <label class="hp-field" for="website" aria-hidden="true">
+                Website
+                <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+              </label>
               <div class="form-grid two">
                 <label for="name">
                   <span class="field-label">Full Name <span class="req">*</span></span>
                   <div class="input-wrapper">
                     <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    <input id="name" name="name" autocomplete="name" required placeholder="Ahmed Benali" />
+                    <input id="name" name="name" autocomplete="name" required minlength="2" maxlength="100" placeholder="Ahmed Benali" />
                   </div>
                 </label>
 
@@ -132,7 +136,7 @@
                   <span class="field-label">Phone / WhatsApp <span class="req">*</span></span>
                   <div class="input-wrapper">
                     <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="+213 550 123 456" />
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" required minlength="6" maxlength="40" placeholder="+213 550 123 456" />
                   </div>
                 </label>
               </div>
@@ -142,7 +146,7 @@
                   <span class="field-label">Business / Company <span class="req">*</span></span>
                   <div class="input-wrapper">
                     <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                    <input id="business" name="business" autocomplete="organization" required placeholder="Clothing store in Algiers" />
+                    <input id="business" name="business" autocomplete="organization" required minlength="2" maxlength="160" placeholder="Clothing store in Algiers" />
                   </div>
                 </label>
 
@@ -150,7 +154,7 @@
                   <span class="field-label">Requested Service <span class="req">*</span></span>
                   <div class="input-wrapper">
                     <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                    <input id="service" name="service" required placeholder="Automate WhatsApp &amp; website leads" />
+                    <input id="service" name="service" required minlength="2" maxlength="160" placeholder="Automate WhatsApp &amp; website leads" />
                   </div>
                 </label>
               </div>
@@ -159,14 +163,14 @@
                 <span class="field-label">Budget Range (Optional)</span>
                 <div class="input-wrapper">
                   <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                  <input id="budget" name="budget" inputmode="text" placeholder="80,000 DZD monthly budget" />
+                  <input id="budget" name="budget" inputmode="text" maxlength="100" placeholder="80,000 DZD monthly budget" />
                 </div>
               </label>
 
               <label for="message">
                 <span class="field-label">Customer Message <span class="req">*</span></span>
                 <div class="input-wrapper textarea-wrapper">
-                  <textarea id="message" name="message" required rows="4" placeholder="I want to automate incoming customer requests this month and follow up faster with qualified leads."></textarea>
+                  <textarea id="message" name="message" required minlength="10" maxlength="3000" rows="4" placeholder="I want to automate incoming customer requests this month and follow up faster with qualified leads."></textarea>
                 </div>
               </label>
 
@@ -347,7 +351,7 @@
           <span class="section-eyebrow">SYSTEM ARCHITECTURE</span>
           <h2 class="section-title">Production Automation Pipeline</h2>
           <p class="section-desc">
-            Dual-branch architecture designed in n8n for sub-second customer response time and asynchronous business operations.
+            Secure server-side intake and n8n orchestration for fast automated qualification and asynchronous business operations.
           </p>
         </div>
 
@@ -358,9 +362,9 @@
             <div class="card-icon intake">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
             </div>
-            <h3 class="card-title">Intake &amp; Validation</h3>
-            <p class="card-desc">HTTP POST webhook receives inquiry. Sanitizes inputs and formats clean payload.</p>
-            <span class="card-badge">n8n Webhook</span>
+            <h3 class="card-title">Secure API Intake</h3>
+            <p class="card-desc">Vercel validates, normalizes, rate-limits, and forwards a safe payload without exposing the workflow URL.</p>
+            <span class="card-badge">/api/qualify</span>
           </div>
 
           <!-- Connector -->
@@ -374,9 +378,9 @@
             <div class="card-icon ai">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
             </div>
-            <h3 class="card-title">Gemini AI Analysis</h3>
-            <p class="card-desc">Evaluates intent, urgency, budget fit, generates rationale and draft reply.</p>
-            <span class="card-badge ai-badge">Google Gemini 1.5</span>
+            <h3 class="card-title">n8n + Gemini Analysis</h3>
+            <p class="card-desc">n8n orchestrates Google Gemini analysis of intent, urgency, budget fit, rationale, and a draft reply.</p>
+            <span class="card-badge ai-badge">Google Gemini</span>
           </div>
 
           <!-- Connector -->
@@ -392,7 +396,7 @@
             </div>
             <h3 class="card-title">Deterministic Guardrails</h3>
             <p class="card-desc">Code node enforces scoring logic: 8-10 HOT, 5-7 WARM, 0-4 COLD. Guardrail enforces HOT if all high.</p>
-            <span class="card-badge">Zero Hallucination</span>
+            <span class="card-badge">Rule-Based Protection</span>
           </div>
 
           <!-- Connector -->
@@ -435,17 +439,17 @@
           <div class="feature-card">
             <div class="feature-icon">🛡️</div>
             <h3>Deterministic Guardrails</h3>
-            <p>Gemini provides rich contextual analysis, but business logic sets the score. Eliminates unexpected AI scoring variance.</p>
+            <p>Gemini extracts structured attributes, while deterministic business rules control final scoring and routing behavior.</p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">⚡</div>
-            <h3>Dual-Branch Speed</h3>
-            <p>Frontend receives AI response instantly. Google Sheets storage and Gmail notifications execute asynchronously.</p>
+            <h3>Reliable Automation</h3>
+            <p>Validated requests receive a clear result while Google Sheets storage and Gmail notifications run through n8n.</p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">🔒</div>
-            <h3>Zero Exposed Secrets</h3>
-            <p>API keys for Gemini, Google Sheets, and Gmail reside exclusively in secured n8n environment variables.</p>
+            <h3>No Browser Secrets</h3>
+            <p>The browser calls a same-origin API route; the n8n webhook URL and required shared secret remain server-side.</p>
           </div>
         </div>
       </section>
@@ -474,7 +478,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="./config.js"></script>
+    <script src="./shared/qualification.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

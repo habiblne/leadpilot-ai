@@ -1,0 +1,13 @@
+{
+  "name": "leadpilot-ai-web",
+  "version": "2.2.0",
+  "private": true,
+  "description": "Secure lead qualification demo with a Vercel API proxy and n8n orchestration.",
+  "scripts": {
+    "test": "node --test",
+    "build": "node scripts/verify-build.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

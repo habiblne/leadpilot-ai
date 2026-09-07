@@ -34,6 +34,8 @@ const messageInput = document.querySelector('#message');
 let isSubmitting = false;
 let currentRawData = null;
 let stepperInterval = null;
+let formStartedAt = Date.now();
+let lastSubmission = null;
 const defaultSubmitText = submitLabel ? submitLabel.textContent : 'Qualify Lead with AI';
 
 // Quick Test Presets
@@ -89,6 +91,8 @@ presetButtons.forEach((btn) => {
 if (resetFormBtn) {
   resetFormBtn.addEventListener('click', () => {
     form.reset();
+    formStartedAt = Date.now();
+    lastSubmission = null;
     presetButtons.forEach((b) => b.classList.remove('active'));
     clearStatus();
   });
@@ -105,6 +109,7 @@ function setStatus(type, message) {
   if (!statusBox) return;
   statusBox.className = `status ${type}`;
   statusBox.textContent = message;
+  statusBox.setAttribute('role', type === 'error' ? 'alert' : 'status');
 }
 
 // Stepper Progress Animation
@@ -158,13 +163,44 @@ function setSubmitting(value) {
   isSubmitting = value;
   submitButton.disabled = value;
   form.setAttribute('aria-busy', String(value));
-  submitLabel.textContent = value ? 'Qualifying with Gemini AI...' : defaultSubmitText;
+  submitLabel.textContent = value ? 'Qualifying securely...' : defaultSubmitText;
 
   if (value) {
     startStepperAnimation();
-  } else {
-    stopStepperAnimation(true);
   }
+}
+
+function createRequestId() {
+  if (globalThis.crypto?.randomUUID) return globalThis.crypto.randomUUID();
+  if (!globalThis.crypto?.getRandomValues) throw new Error('Web Crypto is unavailable.');
+
+  const bytes = globalThis.crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
+function buildSubmissionPayload() {
+  const fields = Object.fromEntries(new FormData(form).entries());
+  const fingerprint = JSON.stringify({
+    name: fields.name,
+    phone: fields.phone,
+    business: fields.business,
+    service: fields.service,
+    budget: fields.budget,
+    message: fields.message,
+  });
+
+  if (!lastSubmission || lastSubmission.fingerprint !== fingerprint) {
+    lastSubmission = { fingerprint, requestId: createRequestId() };
+  }
+
+  return {
+    ...fields,
+    requestId: lastSubmission.requestId,
+    formStartedAt,
+  };
 }
 
 function text(id, value) {
@@ -283,35 +319,50 @@ form.addEventListener('submit', async (event) => {
     return;
   }
 
-  const webhookUrl = window.LEADPILOT_CONFIG?.webhookUrl?.trim();
-  if (!webhookUrl) {
-    setStatus('error', 'Missing n8n webhook URL configuration.');
+  let payload;
+  try {
+    payload = buildSubmissionPayload();
+  } catch {
+    setStatus('error', 'This browser cannot create a secure request identifier. Please use a current browser.');
     return;
   }
-
-  const payload = Object.fromEntries(new FormData(form).entries());
   setSubmitting(true);
-  setStatus('loading', 'Connecting to n8n webhook and triggering Gemini qualification...');
+  setStatus('loading', 'Securely submitting your inquiry for Gemini-powered qualification...');
+  let succeeded = false;
 
   try {
-    const response = await fetch(webhookUrl, {
+    const response = await fetch('/api/qualify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
 
-    const data = await response.json().catch(() => ({}));
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error('The qualification service returned an unreadable response. Please try again.');
+    }
     if (!response.ok) {
-      throw new Error(data?.message || `Webhook request failed (${response.status})`);
+      throw new Error(data?.error?.message || 'Lead qualification is temporarily unavailable. Please try again.');
     }
 
-    setStatus('success', normalizeSuccessMessage(data?.message));
-    showResult(data);
+    let normalized;
+    try {
+      normalized = window.LeadPilotQualification.normalizeQualificationResponse(data);
+    } catch (error) {
+      console.warn('Qualification response validation failed:', error);
+      throw new Error('The qualification service returned an invalid response. Please try again.');
+    }
+
+    succeeded = true;
+    setStatus('success', normalizeSuccessMessage(normalized.message));
+    showResult(normalized);
   } catch (error) {
-    stopStepperAnimation(false);
     setStatus('error', error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.');
   } finally {
     setSubmitting(false);
+    stopStepperAnimation(succeeded);
   }
 });
 
